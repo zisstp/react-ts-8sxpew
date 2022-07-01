@@ -1,11 +1,28 @@
 import * as React from 'react';
 import './style.css';
+import { fetchWeather } from './api/fetchWeather';
 
-export default function App() {
+function App() {
+  const [query, setQuery] = useState('');
+
+  const search = async (e) => {
+    const data = await fetchWeather(query);
+
+    console.log(data);
+  };
+
   return (
-    <div>
-      <h1>Hello StackBlitz!</h1>
-      <p>Start editing to see some magic happen :)</p>
+    <div className="main-container">
+      <input
+        type="text"
+        className="search"
+        placeholder="Search..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyPress={search}
+      />
     </div>
   );
 }
+
+export default App;
